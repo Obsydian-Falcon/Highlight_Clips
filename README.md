@@ -32,7 +32,7 @@ ClipVault is a small locally-hosted web application that shows the user clips ma
 4. Install with the script.
 
 ```bash
-git clone git@github.com:Obsydian-Falcon/clipvault.git
+git clone https://github.com/Obsydian-Falcon/ClipVault.git
 cd clipvault
 chmod +x install.sh
 ./install.sh
