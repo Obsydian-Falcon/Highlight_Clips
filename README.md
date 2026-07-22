@@ -33,7 +33,7 @@ Highlight Clips is a small locally-hosted web application that showcases the vid
 
 ```bash
 git clone https://github.com/Obsydian-Falcon/Highlight_Clips.git
-cd hc
+cd Highlight_Clips
 chmod +x install.sh
 ./install.sh
 ```
