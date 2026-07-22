@@ -1,12 +1,14 @@
 <h1 align="center">Highlight Clips - A local GUI to view videos clipped by GPU Screen Recorder</h1>
 
 <p align="center">
-  <img alt="Highlight Clips - A local GUI to view videos clipped by GPU Screen Recorder" src="https://github.com/Obsydian-Falcon/Personal_Projects/blob/main/hc/image.png">
+  <img alt="Highlight Clips - A local GUI to view videos clipped by GPU Screen Recorder" src="https://github.com/Obsydian-Falcon/Personal_Projects/blob/main/Highlight_Clips/image.png">
 </p>
 
 ## About
 
 Highlight Clips is a small locally-hosted web application that showcases the video clips made by GPU Screen Recorder. 
+
+Since this is based on having GPU Screen Recorder (GSR) anyways, please give that project a look as well! [GPU Screen Recorder Website](https://git.dec05eba.com/gpu-screen-recorder/about/)
 
 ## Features
 
