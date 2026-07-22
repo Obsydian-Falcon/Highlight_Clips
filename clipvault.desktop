@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=ClipVault
+Comment=Browse and play GPU Screen Recorder Clips
+Exec=/home/geckie/Personal/Personal_Projects/clipvault/clipvault.sh
+Icon=/home/geckie/Personal/Personal_Projects/clipvault/icon.png
+Terminal=false
+Categories=AudioVideo;Video;

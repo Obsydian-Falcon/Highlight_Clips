@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=ClipVault
+Comment=Browse and play GPU Screen Recorder Clips
+Exec=__PROJECT_DIR__/clipvault.sh
+Icon=__PROJECT_DIR__/clipvault/icon.png
+Terminal=false
+Categories=AudioVideo;Video;

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Styling for mdi icons -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+
+	<title>ClipVault</title>
+	<style>
+		body {
+			background: #0E0F13;
+			color: #E7E9F0;
+			font-family: system-ui, sans-serif;
+			padding: 24px;
+		}
+		h1 { margin-bottom: 24px; }
+		h2 {
+			color: #8B90A3;
+			font-size: 14px;
+			text-transform: uppercase;
+			letter-spacing: 0.05rem;
+			margin-top: 32px;
+		}
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+			gap: 16px;
+		}
+		.card {
+			cursor: pointer;
+			background: #171922;
+			border-radius: 10px;
+			overflow: hidden;
+		}
+		.card img {
+			width: 100%;
+			display: block;
+			aspect-ratio: 16 / 9;
+			object-fit: cover;
+		}
+
+		.card .title {
+			padding: 10px 12px;
+			font-size: 14px;
+		}
+
+		.player-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.85);
+			justify-content: center;
+			align-items: center;
+			padding: 40px;
+			z-index: 100; /* Sit on top of everything */
+		}
+		.player-overlay.open {
+			display: flex
+		}
+		.player-overlay video {
+			max-width: 90%;
+			max-height: 90%;
+			border-radius: 8px;
+		}
+		.search {
+			width: 100%;
+			max-width: 420px;
+			padding: 10px 14px;
+			margin-bottom: 8px;
+			background: #171922;
+			border: 1px solid #262A38;
+			border-radius: 8px;
+			color: #E7E9F0;
+			font-size: 15px;
+			box-sizing: border-box;
+		}
+		.search:focus {
+			outline: none;
+			border-color: #F2B134;
+		}
+		.actions {
+    	display: flex;
+    	align-items: center;
+    	justify-content: flex-end;
+    	gap: 8px;
+    	padding: 0 12px 10px;
+		}
+		.actions form {
+		  margin: 0;
+		}
+		.rename-form {
+			display: none; /* hidden until rename mode */
+			margin: 0;
+			gap: 4px;
+			gap: 4px;
+			align-items: center;
+		}
+		.actions input[name="new_name"] {
+			width: 120px;
+			min-width: 0;
+			background: #0E0F13;
+			border: 1px solid #262A38;
+			border-radius: 6px;
+			color: #E7E9F0;
+			padding: 4px 8px;
+			font-size: 13px;
+		}
+		/* When the card is in rename mode: show the form and hide the trigger */
+		.card.renaming .rename-form { display: flex; }
+		.card.renaming .rename-trigger { display: none; } /* Hide the trigger */
+
+		.rename-trigger, .rename, .star, .delete {
+			background: none;
+			border: none;
+			cursor: pointer;
+			font-size: 20px;
+			vertical-align: middle;
+		}
+		.star { color: #F2B134; }
+		.delete { color: #8B90A3; }
+		.delete:hover { color: #E5484D; }
+		.rename-trigger, .rename { color: #8B90A3; }
+		.rename-trigger:hover, .rename:hover { color: #F2B134; }
+
+	</style>
+</head>
+
+
+<body>
+	<h1>ClipVault</h1>
+
+	<!-- Search -->
+	<i class="mdi mdi-magnify"></i>
+	<input id="search" class="search" type="text" placeholder="Search Clips...">
+	<!-- Favorites Toggle -->
+	<label class="fav-toggle">
+		<input type="checkbox" id="favOnly"> Favorites Only
+	</label>
+
+	<!-- For each label and clip in items
+	   - Make the date the label
+		 - Make a grid
+		 - Make a card for each video
+	-->
+	{% for label, clips in groups.items() %}
+		<div class="date-group">
+			<h2>{{ label }}</h2>
+			<div class="grid">
+				{% for clip in clips %}
+				<div class="card" data-name="{{ clip.name | lower }}" data-favorite="{{ clip.is_favorite | lower }}">
+					<img src="/thumbnails/{{ clip.clip_id }}" onclick="playClip('{{ clip.clip_id }}')">
+					<div class="title">{{ clip.name }}</div>
+					<div class="actions">
+						<!-- Favorite button -->
+						<form method="POST" action="/favorite/{{ clip.clip_id }}">
+								<button type="submit" class="star">
+									{% if clip.is_favorite %}
+										<i class="mdi mdi-star"></i>
+									{% else %}
+										<i class="mdi mdi-star-outline"></i>
+									{% endif %}
+								</button>
+							</form>
+							<!-- Rename button -->
+							<button type="button" class="rename-trigger" onclick="openRename(this)">
+								<i class="mdi mdi-pencil"></i>
+							</button>
+							<form method="POST" action="/rename/{{ clip.clip_id }}" class="rename-form">
+								<input type="text" name="new_name" placeholder="New name...">
+								<button type="submit" class="rename"><i class="mdi mdi-check"></i></button>
+							</form>
+							<!-- Delete button -->
+							<form method="POST" action="/delete/{{ clip.clip_id }}">
+								<button type="submit" class="delete"><i class="mdi mdi-delete"></i></button>
+							</form>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+
+	<div id="player" class="player-overlay" onclick="closePlayer()">
+		<video id="player-video" controls></video>
+	</div>
+
+	<script>
+		const overlay = document.getElementById("player");
+		const video = document.getElementById("player-video");
+	
+		function playClip(clipId) {
+			video.src = "/video/" + clipId; // point the player at this clip
+			overlay.classList.add("open"); // Reveal the overlay
+		}
+	
+		function closePlayer() {
+			overlay.classList.remove("open"); // Hide it
+			video.pause();
+			video.src = ""; // stop it from downloading in the background
+		}
+	
+		// Clicking the video will not close the overlay
+		video.addEventListener("click", (event) => event.stopPropagation());
+		
+		// Escape key closes the player
+		document.addEventListener("keydown", (event) => {
+			if (event.key === "Escape") closePlayer();
+		});
+
+	 const search = document.getElementById("search");
+	 const favOnly = document.getElementById("favOnly");
+
+	 function applyFilters() {
+     const query = search.value.toLowerCase().trim();
+		 const onlyFavs = favOnly.checked;
+
+		 document.querySelectorAll(".date-group").forEach((group) => {
+		   let visibleInGroup = 0;
+			 group.querySelectorAll(".card").forEach((card) => {
+         const matchesText = card.dataset.name.includes(query);
+				 const matchesFav = !onlyFavs || card.dataset.favorite === "true";
+				 const show = matchesText && matchesFav;
+				 card.style.display = show ? "" : "none";
+				 if (show) visibleInGroup++;
+			 });
+			 group.style.display = visibleInGroup > 0 ? "" : "none";
+		 });
+	 }
+		function openRename(triggerButton) {
+			const card = triggerButton.closest(".card"); // Find the .card this button lives within and switch it into rename mode
+			card.classList.add("renaming");
+			card.querySelector('input[name="new_name"]').focus(); // Ready to type
+		}
+
+		// Escape cancels rename mode on any open card
+		document.addEventListener("keydown", (event) => {
+			if(event.key === "Escape") {
+				document.querySelectorAll(".card.renaming").forEach((card) => {
+					card.classList.remove("renaming");
+				});
+			}
+		});
+
+		
+	 
+	 search.addEventListener("input", applyFilters);
+	 favOnly.addEventListener("change", applyFilters);
+
+	</script>
+</body>
+</html>

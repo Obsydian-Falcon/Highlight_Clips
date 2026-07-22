@@ -1,0 +1,12 @@
+[Unit]
+Description=ClipVault clip library server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=__PROJECT_DIR__
+ExecStart=__PROJECT_DIR__/venv/bin/python run.py
+Restart:on-failure
+
+[Install]
+WantedBy=default.target
