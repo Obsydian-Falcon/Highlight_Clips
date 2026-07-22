@@ -1,7 +1,7 @@
 <h1 align="center">Highlight Clips - A local GUI to view videos clipped by GPU Screen Recorder</h1>
 
 <p align="center">
-  <img alt="Highlight Clips - A local GUI to view videos clipped by GPU Screen Recorder" src="https://github.com/Obsydian-Falcon/Personal_Projects/blob/main/Highlight_Clips/image.png">
+  <img alt="Highlight Clips - A local GUI to view videos clipped by GPU Screen Recorder" src="https://github.com/Obsydian-Falcon/Highlight_Clips/blob/main/image.png">
 </p>
 
 ## About
