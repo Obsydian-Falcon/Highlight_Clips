@@ -8,11 +8,11 @@ poetry install # dependencies
 mkdir -p ~/.config/systemd/user ~/.local/share/applications
 
 # Generate a service file with realpath baked in
-sed "s|__PROJECT_DIR__|$PROJECT_DIR|g" clipvault.service.template \
-    > ~/.config/systemd/user/clipvault.service
+sed "s|__PROJECT_DIR__|$PROJECT_DIR|g" hc.service.template \
+    > ~/.config/systemd/user/hc.service
 
-sed "s|__PROJECT_DIR__|$PROJECT_DIR|g" clipvault.desktop.template \
-    > ~/.local/share/applications/clipvault.desktop
+sed "s|__PROJECT_DIR__|$PROJECT_DIR|g" hc.desktop.template \
+    > ~/.local/share/applications/hc.desktop
 
 # Make a venv
 python3 -m venv "$PROJECT_DIR/venv"
@@ -20,6 +20,6 @@ python3 -m venv "$PROJECT_DIR/venv"
 
 # Set systemctl
 systemctl --user daemon-reload
-systemctl --user enable --now clipvault.service
+systemctl --user enable --now hc.service
 
-echo "ClipVault installed. Runing at http://localhost:5000"
+echo "Highlight Clips installed. Runing at http://localhost:5000"

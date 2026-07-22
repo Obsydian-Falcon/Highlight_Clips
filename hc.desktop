@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Highlight Clips
+Comment=Browse and play GPU Screen Recorder Clips
+Exec=/home/geckie/Personal/Personal_Projects/Highlight_Clips/hc.sh
+Icon=/home/geckie/Personal/Personal_Projects/Highlight_Clips/icon.png
+Terminal=false
+Categories=AudioVideo;Video;

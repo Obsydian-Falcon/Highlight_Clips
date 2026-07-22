@@ -1,12 +1,12 @@
-<h1 align="center">ClipVault - A local GUI to view videos clipped by GPU Screen Recorder</h1>
+<h1 align="center">Highlight Clips - A local GUI to view videos clipped by GPU Screen Recorder</h1>
 
 <p align="center">
-  <img alt="ClipVault - A local GUI to view videos clipped by GPU Screen Recorder" src="https://github.com/Obsydian-Falcon/Personal_Projects/blob/main/clipvault/image.png">
+  <img alt="Highlight Clips - A local GUI to view videos clipped by GPU Screen Recorder" src="https://github.com/Obsydian-Falcon/Personal_Projects/blob/main/hc/image.png">
 </p>
 
 ## About
 
-ClipVault is a small locally-hosted web application that shows the user clips made by GPU Screen Recorder. This project was made because I couldn't find a program that displayed my videos that layered on top of GPU Screen Recorder's existing functionality
+Highlight Clips is a small locally-hosted web application that showcases the video clips made by GPU Screen Recorder. 
 
 ## Features
 
@@ -27,13 +27,13 @@ ClipVault is a small locally-hosted web application that shows the user clips ma
 
 ### Git
 1. Clone the repository:
-2. Change directory to "clipvault"
+2. Change directory to "Highlight Clips"
 3. Change permissions on the installation script
 4. Install with the script.
 
 ```bash
-git clone https://github.com/Obsydian-Falcon/ClipVault.git
-cd clipvault
+git clone https://github.com/Obsydian-Falcon/Highlight_Clips.git
+cd hc
 chmod +x install.sh
 ./install.sh
 ```
@@ -42,12 +42,12 @@ chmod +x install.sh
 
 1. Create a `.env` file in the root of the project directory.
 2. Set the following variables.
-  * CLIPVAULT_VIDEO_DIR, the directory in which GPU Screen Recorder videos are stored.
-  * CLIPVAULT_PORT, the port you wish the service to run on.
+  * HC_VIDEO_DIR, the directory in which GPU Screen Recorder videos are stored.
+  * HC_PORT, the port you wish the service to run on.
 
 ```
-CLIPVAULT_VIDEO_DIR=<video_directory>
-CLIPVAULT_PORT=<port>
+HC_VIDEO_DIR=<video_directory>
+HC_PORT=<port>
 ```
 
 ## Uninstall
@@ -59,13 +59,13 @@ CLIPVAULT_PORT=<port>
 5. (Optional) remove cached thumbnails and favorites
 
 ```bash
-systemctl --user stop clipvault
-systemctl --user disable clipvault
+systemctl --user stop hc
+systemctl --user disable hc
 
-rm ~/.config/systemd/user/clipvault.service
-rm ~/.local/share/applications/clipvault.desktop
+rm ~/.config/systemd/user/hc.service
+rm ~/.local/share/applications/hc.desktop
 
 systemctl --user daemon-reload
 
-rm -rf ~/.cache/clipvault
+rm -rf ~/.cache/hc
 ```

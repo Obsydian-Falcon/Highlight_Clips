@@ -15,15 +15,15 @@ app = Flask(__name__)  # Make the app
 
 # Define where videos from GPU_Screen_Recorder live
 # Additionally, note which file extensions are allowed
-VIDEO_DIR = Path(os.environ.get("CLIPVAULT_VIDEO_DIR", Path.home() / "Videos"))
+VIDEO_DIR = Path(os.environ.get("HC_VIDEO_DIR", Path.home() / "Videos"))
 VIDEO_EXTENSIONS = {".mp4", ".mkv", ".mov", ".webm", ".flv"}
 
 # DEFINE where thumbnails are stored
-THUMBNAIL_DIR = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache")) / "clipvault"
+THUMBNAIL_DIR = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache")) / "hc"
 THUMBNAIL_DIR.mkdir(parents=True, exist_ok=True)  # Create a thumbnail directory if it doesn't exist yet
 
 # PORT
-PORT = int(os.environ.get("CLIPVAULT_PORT", 5000))  # Default to 5000 if unset
+PORT = int(os.environ.get("HC_PORT", 5000))  # Default to 5000 if unset
 
 # INDEX
 CLIP_INDEX: dict[str, Path] = {}  # Maps clip_id to the real path of the video file

@@ -1,5 +1,5 @@
 [project]
-name = "clipvault"
+name = "hc"
 version = "0.1.0"
 description = "A local web app to browse and play GPU Screen Recorder clips"
 authors = [

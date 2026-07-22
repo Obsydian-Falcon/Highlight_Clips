@@ -1,5 +1,5 @@
 [Unit]
-Description=ClipVault clip library server
+Description=Highlight Clips clip library server
 After=network.target
 
 [Service]
